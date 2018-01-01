@@ -1,0 +1,235 @@
+/* NerdFace
+Duy Anh Nguyen
+October 2, 2017
+This program will play a single, 3-rounds hand of Poker. It will print your five cards and let you choose to keep or get a new one.
+Your goal/object is to build the best poker hand!
+Process:
+ - Get player's information (player's name).
+ - Print 5 start cards.
+ - Ask if they want to change. (x2)
+ - Print final cards after 3-rounds hand of Poker.
+*/
+
+// Joke of the day: There is that one guy in computer science class. All he ever wanted was a "B" in his class, but the best he ever got was "C++". ( Sad Life )
+
+ // Pre-Processor directive:
+#include <iostream>
+#include <conio.h>
+#include <string>
+#include <Windows.h>
+#include <time.h>
+#include "colours.h"
+using namespace std;
+
+ // Function prototype:
+void seed_random(void);                                      // Seed random generator for random number
+void start_card(int card[5], int suit[5]);                   // Print five cards at the beginning
+void replace_card(string name, int card[5], int suit[5]);    // User option to replace cards
+void print_card(const int card[5], const int suit[5]);                   // Print cards outlook
+
+ // Main program
+int main(void)
+{
+     // Local variable dictionary:
+	string name;             // Player's name
+	int card[5];             // Player's cards number
+	int suit[5];             // Card's suits
+
+     /* Program */
+     // Set original colour
+	text_colour(f_white, b_black); // Colour
+
+     // Seed random generator
+	seed_random();
+
+     // Print information about this program
+	text_colour(f_green, b_black); // Colour
+	cout << "This program will play a single, 3-rounds hand of Poker." << endl;
+	cout << "It will print your five cards and let you choose to keep or get a new one." << endl;
+	cout << "Your goal/object is to build the best poker hand!" << endl;
+
+     // Get player's information - Player's name
+	text_colour(f_white, b_black); // Colour
+	cout << "Player's name: ";
+	cin >> name;
+	cin.ignore(255, '\n'); // Clean out remainder of input line
+
+     // Clear screen for cards run
+	system("cls");
+
+     // Run two rounds for player to change cards and print final cards last
+	text_colour(f_white, b_black); // Colour
+
+     // Print start cards
+	cout << "DEALING CARDS..." << endl;
+	start_card(card, suit); // Get the five start cards
+	print_card(card, suit); // Print the five start cards
+     // Player's option to replace cards
+	text_colour(f_white, b_black); // Colour
+	cout << "Round 1:" << endl;
+	replace_card(name, card, suit); // Replace option
+     
+     // Clear screen for the next cards run
+	system("cls");
+    			
+	text_colour(f_white, b_black); // Default colour
+
+     // Print current cards
+	cout << "Your cards are now..." << endl;
+	print_card(card, suit);
+     // Player's option to replace cards
+	text_colour(f_white, b_black); // Colour
+	cout << "Round 2:" << endl;
+	replace_card(name, card, suit);
+     // Clear screen for the next cards run
+	system("cls");
+
+	text_colour(f_white, b_black); // Default colour
+
+     // Print final cards
+	cout << "Your final cards are..." << endl;
+	print_card(card, suit);
+
+     // Stop point
+	text_colour(f_gray, b_black); // Colour
+	system("pause");
+
+     // Return
+	return 0;
+} // Main
+
+ /* Function */
+ /* seed_random(void) - This function will seed the random generator for random number.
+ */
+void seed_random(void)
+{
+     // Local variable dictionary:
+	int i;            // Loop counter
+
+     // Seed the random number generator use the timer
+	srand((unsigned)time(NULL));
+	for (i = 0; i<rand(); i++)
+		rand();
+} // seed_random(void)
+
+ /* start_card(int [], char []) - This function print five cards at the beginning.
+ Parameter:
+ + Card - The cards player have.
+ + Suit - The card's suit player have.
+ */
+void start_card(int card[5], int suit[5])
+{
+     // Loop five times to get five random card's number as start cards
+	for (int counter = 0; counter <= 4; counter++)
+	{
+         // Get cards
+		card[counter] = rand() % 13 + 2;
+	} // For
+
+     // Loop five times to get five random card's suit as start cards
+	for (int counter = 0; counter <= 4; counter++)
+	{
+         // Get suits
+		suit[counter] = rand() % 4 + 3;
+	} // For
+} // start_card(int [], char [])
+
+
+ /* replace_card(int [], char []) - This function give user the option to change cards if player want.
+ Parameter:
+ + Card - The cards player have.
+ + Suit - The card's suit player have.
+ */
+void replace_card(string name, int card[5], int suit[5])
+{
+     // Local variable dictionary:
+	char choice;
+
+     // Loop to get replace choice for all five cards
+	for (int counter = 0; counter <= 4; counter++)
+	{
+		text_colour(f_white, b_black); // Colour
+         // Get user choice to replace card
+		cout << name << ", do you want to replace card #" << (counter + 1) << " (Y/N)? ";
+		choice = toupper(_getch());
+		cout << choice << endl;
+		
+         // Validate user choice
+		while (cin.fail() || choice != 'Y' && choice != 'N')
+		{
+			if (cin.fail())
+				cin.clear(); // Clear error
+			cin.ignore(255, '\n'); // Clean out remainder of input line
+
+             // Re-enter - bet
+			text_colour(f_red, b_black); // Colour
+			cout << "INVALID CHOICE!" << endl;
+			text_colour(f_dred, b_black); // Colour
+			cout << "Please re-enter your choice! (Y/N) ";
+			text_colour(f_white, b_black); // Colour
+			choice = toupper(_getch());
+			cout << choice << endl;
+		} // While
+
+         // Replace card if user want
+		if (choice == 'Y')
+		{
+			// Get new card
+			card[counter] = rand() % 13 + 2;
+			// Get new suit
+			suit[counter] = rand() % 4 + 3;
+		} // If
+	} // For
+} // replace_card(int [], char [])
+
+
+ /* print_card(int [], char []) - This funtion print cards outlook ( number and suit ).
+ Parameter:
+ + Card - The cards player have.
+ + Suit - The card's suit player have.
+ */
+void print_card( const int card[5], const int suit[5])
+{
+     // Local variable dictionary:
+	string print_face;            // Card face look (case of card that have value greater than 10) - Jack, Queen, King, Ace
+
+     // Run five times to print the five cards
+	for (int counter = 0; counter <= 4; counter++)
+	{
+		switch (card[counter])
+		{
+		case 1: print_face = "1"; break;
+		case 2: print_face = "2"; break;
+		case 3: print_face = "3"; break;
+		case 4: print_face = "4"; break;
+		case 5: print_face = "5"; break;
+		case 6: print_face = "6"; break;
+		case 7: print_face = "7"; break;
+		case 8: print_face = "8"; break;
+		case 9: print_face = "9"; break;
+		case 10: print_face = "T"; break;
+		case 11: print_face = "J"; break;
+		case 12: print_face = "Q"; break;
+		case 13: print_face = "K"; break;
+		case 14: print_face = "A"; break;
+		} // Switch
+
+         // Print card's number
+		text_colour(f_white, b_black); // Colour
+		cout << "Card " << (counter + 1) << ":" << endl;
+
+         // Check card's colour
+		if (suit[counter] <= 4)
+			text_colour(f_red, b_white);
+		else
+			text_colour(f_black, b_white);
+
+		// Print card
+		cout << "=====" << endl;
+		cout << "|" << print_face << " " << (char)suit[counter] << "|" << endl;
+		cout << "|   |" << endl;
+		cout << "|" << (char)suit[counter] << " " << print_face << "|" << endl;
+		cout << "=====" << endl;
+		cout << endl; // Space
+	} // For
+} // print_card(int [], char [])
