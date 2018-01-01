@@ -1,0 +1,171 @@
+/* TheNerdStruggle
+Duy Anh Nguyen
+October 12, 2017
+This program simulate a curling game.
+It first (toss) a coin to see which team go first. Then simulate the game play between two teams.
+The team that have hammer will likely to win because they have higher percentage of score higher score.
+- Team with hammer score chance:
+    - Score 1: 20%
+    - Score 2: 15%
+    - Score 3: 10%
+    - Score 4:  5%
+- Team without hammer score chance:
+    - Score 1: 19%
+    - Score 2: 10%
+    - Score 3:  5%
+    - Score 4:  1%
+Note: The chance both team would not score is 15%
+Process:
+- Toss the coin 50% - 50% chance to determine which team get the hammer.
+- Print score board.
+- Do game simulation.
+    + Run the 10 rounds.
+        + If after 10 rounds and both team tie, run until we have the winning team.
+- Print winner.
+*/
+
+// Pre-Processor directive:
+#include <iostream>
+#include <time.h>
+using namespace std;
+
+ // Function prototype:
+void seed_random(void);                                               // Seed random generator for random number
+bool coin_toss(void);                                                 // Determine which team get the hammer
+void simulate_play(int &hammerteam, int &nohammerteam);               // Simulate the game play
+void earn_point(int &hammerteam, int &nohammerteam, int round);       // Run the points each team earn per round
+
+ // Main program
+int main(void)
+{
+     // Local variable dictionary:
+	int t1_score = 0, t2_score = 0;            // Team 1 and 2 total score
+
+     /* Program */
+
+     // Seed random generator
+	seed_random();
+
+     // Determine which team get the hammer (if 'true', team 1 get the hammer. else team 2)
+	bool hammer = coin_toss();
+
+     // Simulate the game play
+	if (hammer == true)
+	{
+         // Print score board
+		cout << "Round   Team 30s   Team 40s" << endl;
+		simulate_play(t1_score, t2_score);
+	} // If
+	else
+	{
+         // Print score board
+		cout << "Round   Team 40s   Team 30s" << endl;
+		simulate_play(t2_score, t1_score);
+	} // Else
+
+	  // Print winning team
+	if (t1_score > t2_score)
+		cout << "Team 30s Win! " << t1_score << "-" << t2_score << endl;
+	else
+		cout << "Team 40s Win! " << t2_score << "-" << t1_score << endl;
+
+     // Stop point
+	system("pause");
+
+     // Return
+	return 0;
+} // Main
+
+ /* Function */
+ /* seed_random(void) - This function will seed the random generator for random number.
+ */
+void seed_random(void)
+{
+     // Local variable dictionary:
+	int i;            // Loop counter
+
+     // Seed the random number generator use the timer
+	srand((unsigned)time(NULL));
+	for (i = 0; i<rand(); i++)
+		rand();
+} // seed_random(void)
+
+ /* coin_toss(void) - This function randomly(HINT, HINT, HINT...) determine which team have the hammer.
+ */
+bool coin_toss(void)
+{
+	return rand() % 2;
+} // coin_toss(void)
+
+ /* simulate_play(int&, int&) - This funtion simulate the game play of two teams.
+ Parameter:
+ + hammerteam - THe team that have hammer.
+ + nohammerteam - The team that does not have hammer.
+ */
+void simulate_play(int &hammerteam, int &nohammerteam)
+{
+     // Local variable dictionary:
+	int round = 1;            // The round's number
+
+     // Run 10 round and extral if two teams having the same score
+	while (round <= 10 || (hammerteam == nohammerteam))
+	{
+         // Run the round
+		earn_point(hammerteam, nohammerteam, round);
+
+         // Next round up to 10 and extral of two teams having the same score
+		round++;
+	} // While
+
+     // Print final result
+	cout << "---------------------------" << endl;
+	cout << "Final     " << hammerteam << "         " << nohammerteam << "      " << endl;
+} // simulate_play(int&, int&)
+
+ /* earn_point(int&, int&, int) - This function run the points each team score/earn during the round.
+ Parameter:
+ + hammerteam - THe team that have hammer.
+ + nohammerteam - The team that does not have hammer.
+ + round - The round's number.
+ */
+void earn_point(int &hammerteam, int &nohammerteam, int round)
+{
+     // Random score for two teams
+	int point_score = rand() % 100 + 1;            // Generate random score for hammer team - 50% for hammer team, 35% for no hammer team, and 15% no score
+     // Note: They all add up to 100%
+
+     // Transfer the random number into point(s)
+	int hammer_point = 0;            // Hammer team point scored this round
+	int nohammer_point = 0;          // No hammer team point scored this round
+     // No team score
+	if (point_score >= 1 && point_score <= 15)
+	{
+		hammer_point = 0;
+		nohammer_point = 0;
+	} // If
+     // Hammer team
+	if (point_score >= 16 && point_score <= 35) // Scoring 1
+		hammer_point = 1;
+	else if (point_score >= 36 && point_score <= 50) // Scoring 2
+		hammer_point = 2;
+	else if (point_score >= 51 && point_score <= 60) // Scoring 3
+		hammer_point = 3;
+	else if (point_score >= 61 && point_score <= 65) // Scoring 4
+		hammer_point = 4;
+     // No hammer team
+	if (point_score >= 66 && point_score <= 84) // Scoring 1
+		nohammer_point = 1;
+	else if (point_score >= 85 && point_score <= 94) // Scoring 2
+		nohammer_point = 2;
+	else if (point_score >= 95 && point_score <= 99) // Scoring 3
+		nohammer_point = 3;
+	else if (point_score == 100) // Scoring 4
+		nohammer_point = 4;
+
+     // Print to score board
+	cout << "  " << round << "    " << "    " << hammer_point << "     " << "    " << nohammer_point << "    " << endl;
+
+     // Update both team total score
+	hammerteam += hammer_point;
+	nohammerteam += nohammer_point;
+} // earn_point(int&, int&, int)
