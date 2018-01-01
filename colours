@@ -1,0 +1,53 @@
+//GeneralFunction.h contains function that the entire program
+//is able to access, including colors, clearing the screen, etc.
+
+using namespace std;
+
+// ********** structures and enumerated types **********
+
+// ENUMERATE FOREGROUND COLORS
+enum fore_color
+{
+	f_black = 0,
+	f_white = FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE,
+	f_gray = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE,
+	f_red = FOREGROUND_INTENSITY | FOREGROUND_RED,
+	f_dred = FOREGROUND_RED,
+	f_green = FOREGROUND_INTENSITY | FOREGROUND_GREEN,
+	f_dgreen = FOREGROUND_GREEN,
+	f_yellow = FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN,
+	f_dyellow = FOREGROUND_RED | FOREGROUND_GREEN,
+	f_blue = FOREGROUND_INTENSITY | FOREGROUND_BLUE,
+	f_dblue = FOREGROUND_BLUE,
+	f_magenta = FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_BLUE,
+	f_dmagenta = FOREGROUND_RED | FOREGROUND_BLUE,
+	f_cyan = FOREGROUND_INTENSITY | FOREGROUND_GREEN | FOREGROUND_BLUE,
+	f_dcyan = FOREGROUND_GREEN | FOREGROUND_BLUE,
+};
+// ENUMERATE BACKGROUND COLORS
+enum back_color
+{
+	b_black = 0,
+	b_white = BACKGROUND_INTENSITY | BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE,
+	b_gray = BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE,
+	b_red = BACKGROUND_INTENSITY | BACKGROUND_RED,
+	b_dred = BACKGROUND_RED,
+	b_green = BACKGROUND_INTENSITY | BACKGROUND_GREEN,
+	b_dgreen = BACKGROUND_GREEN,
+	b_yellow = BACKGROUND_INTENSITY | BACKGROUND_RED | BACKGROUND_GREEN,
+	b_dyellow = BACKGROUND_RED | BACKGROUND_GREEN,
+	b_blue = BACKGROUND_INTENSITY | BACKGROUND_BLUE,
+	b_dblue = BACKGROUND_BLUE,
+	b_magenta = BACKGROUND_INTENSITY | BACKGROUND_RED | BACKGROUND_BLUE,
+	b_dmagenta = BACKGROUND_RED | BACKGROUND_BLUE,
+	b_cyan = BACKGROUND_INTENSITY | BACKGROUND_GREEN | BACKGROUND_BLUE,
+	b_dcyan = BACKGROUND_GREEN | BACKGROUND_BLUE,
+};
+// ********** general functions **********
+
+//Function to set the text color
+void text_colour(fore_color fg, back_color bg)
+{
+	/** apply the text color we want **/
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), fg | bg);
+}
