@@ -1,0 +1,283 @@
+/* NerdyPrint
+Duy Anh Nguyen
+October 7, 2017
+This program will get five letters user enter. Then print it out in big font.
+Process:
+- Get input - five letters by user.
+    + Ensure user entered an actually alphabet money.
+- Print the five letters in big font.
+*/
+
+// Joke of the day: Fix one error in this program, 200 new errors occur. Yes! this program...
+
+ // Pre-Processor directive:
+#include <iostream>
+#include <conio.h>
+using namespace std;
+
+ // Function prototype:
+void print_letter(char letter);
+
+ // Main program
+int main(void)
+{
+     // Local variable dictionary:
+	char letter[5];            // The five letters user enter for printing
+
+     /* Program */
+     // Get five letters
+	for (int counter = 0; counter <= 4; counter++)
+	{
+         // Get the letter's number
+		cout << "Letter " << counter + 1 << ": ";
+		letter[counter] = toupper(_getch());
+		cout << letter[counter] << endl;
+
+         // Validate input - Ensure the user entered an alphabet letter
+		while (!(letter[counter] >= 'A' && letter[counter] <= 'Z'))
+		{
+			cout << "Invalid Input! ";
+			cout << "Please re-enter the letter " << counter + 1 << ": ";
+			letter[counter] = toupper(_getch());
+			cout << letter[counter] << endl;
+		} // While
+	} // For
+
+     // Print five letters in huge font like the wall ( You know what wall )
+	for (int counter = 0; counter <= 4; counter++)
+	{
+         // Print the letter in big font
+		print_letter(letter[counter]);
+	} // For
+
+     // Stop point
+	system("pause");
+
+     // Return
+	return 0;
+} // Main
+
+ /* Function */
+ /* print_letter(char) - This funtion take the letters user enter and print it in big font.
+ It also double check to see if user actually entered one of twenty-six alphabet letters to prevent any crash from over flow.
+ Parameter:
+ + letter - The letter entered from user to print big font.
+ */
+void print_letter(char letter)
+{
+     // The 26 letters of alphabet in big font
+	static const char *letters[26] =
+	{
+		" ______           \n"
+		"/\\  _  \\        \n"
+		"\\ \\ \\L\\ \\    \n"
+		" \\ \\  __ \\     \n"
+		"  \\ \\ \\/\\ \\  \n"
+		"   \\ \\_\\ \\_\\ \n"
+		"    \\/_/\\/_/    \n",
+		
+		" ____            \n"
+		"/\\  _`\\        \n"
+		"\\ \\ \\L\\ \\   \n"
+		" \\ \\  _ <'     \n"
+		"  \\ \\ \\L\\ \\ \n"
+		"   \\ \\____/    \n"
+		"    \\/___/      \n",
+
+		" ____            \n"
+		"/\\  _`\\        \n"
+		"\\ \\ \\/\\_\\   \n"
+		" \\ \\ \\/_/_    \n"
+		"  \\ \\ \\L\\ \\ \n"
+		"   \\ \\____/    \n"
+		"    \\/___/      \n",
+
+		" ____            \n"
+		"/\\  _`\\        \n"
+		"\\ \\ \\/\\ \\   \n"
+		" \\ \\ \\ \\ \\  \n"
+		"  \\ \\ \\_\\ \\ \n"
+		"   \\ \\____/    \n"
+		"    \\/___/      \n",
+
+		" ____            \n"
+		"/\\  _`\\        \n"
+		"\\ \\ \\L\\_\\   \n"
+		" \\ \\  _\\L     \n"
+		"  \\ \\ \\L\\ \\ \n"
+		"   \\ \\____/    \n"
+		"    \\/___/      \n",
+
+		" ____          \n"
+		"/\\  _`\\      \n"
+		"\\ \\ \\L\\_\\ \n"
+		" \\ \\  _\\/   \n"
+		"  \\ \\ \\/    \n"
+		"   \\ \\_\\    \n"
+		"    \\/_/      \n",
+
+		" ____            \n"
+		"/\\  _`\\        \n"
+		"\\ \\ \\L\\_\\   \n"
+		" \\ \\ \\L_L     \n"
+		"  \\ \\ \\/, \\  \n"
+		"   \\ \\____/    \n"
+		"    \\/___/      \n",
+
+		" __  __           \n"
+		"/\\ \\/\\ \\      \n"
+		"\\ \\ \\_\\ \\    \n"
+		" \\ \\  _  \\     \n"
+		"  \\ \\ \\ \\ \\  \n"
+		"   \\ \\_\\ \\_\\ \n"
+		"    \\/_/\\/_/    \n",
+
+		" ______         \n"
+		"/\\__  _\\      \n"
+		"\\/_/\\ \\/     \n"
+		"   \\ \\ \\     \n"
+		"    \\_\\ \\__  \n"
+		"    /\\_____\\  \n"
+		"    \\/_____/   \n",
+
+		" _____         \n"
+		"/\\___ \\      \n"
+		"\\/__/\\ \\    \n"
+		"   _\\ \\ \\   \n"
+		"  /\\ \\_\\ \\ \n"
+		"  \\ \\____/   \n"
+		"   \\/___/     \n",
+
+		" __  __           \n"
+		"/\\ \\/\\ \\      \n"
+		"\\ \\ \\/'/'      \n"
+		" \\ \\ , <        \n"
+		"  \\ \\ \\`\\     \n"
+		"   \\ \\_\\ \\_\\ \n"
+		"    \\/_/\\/_/    \n",
+
+		" __              \n"
+		"/\\ \\           \n"
+		"\\ \\ \\         \n"
+		" \\ \\ \\  __    \n"
+		"  \\ \\ \\L\\ \\ \n"
+		"   \\ \\____/    \n"
+		"    \\/___/      \n",
+
+		"                  \n"
+		" /'\\_/`\\        \n"
+		"/\\      \\       \n"
+		"\\ \\ \\__\\ \\   \n"
+		" \\ \\ \\_/\\ \\  \n"
+		"  \\ \\_\\ \\_\\  \n"
+		"   \\/_/ \\/_/    \n",
+
+		" __  __           \n"
+		"/\\ \\/\\ \\      \n"
+		"\\ \\ `\\ \\      \n"
+		" \\ \\ , ` \\     \n"
+		"  \\ \\ \\`\\ \\  \n"
+		"   \\ \\_\\ \\_\\ \n"
+		"    \\/_/\\/_/    \n",
+
+		" _____            \n"
+		"/\\  __`\\        \n"
+		"\\ \\ \\/\\ \\    \n"
+		" \\ \\ \\ \\ \\   \n"
+		"  \\ \\ \\_\\ \\  \n"
+		"   \\ \\_____\\   \n"
+		"    \\/_____/     \n",
+
+		" ____          \n"
+		"/\\  _`\\      \n"
+		"\\ \\ \\L\\ \\ \n"
+		" \\ \\ ,__/    \n"
+		"  \\ \\ \\/    \n"
+		"   \\ \\_\\    \n"
+		"    \\/_/      \n",
+
+		" _____            \n"
+		"/\\  __`\\        \n"
+		"\\ \\ \\/\\ \\    \n"
+		" \\ \\ \\ \\ \\   \n"
+		"  \\ \\ \\'\\     \n"
+		"   \\ \\___\\_\\  \n"
+		"    \\/__//_/     \n",
+
+		" ____             \n"
+		"/\\  _`\\         \n"
+		"\\ \\ \\L\\ \\    \n"
+		" \\ \\ ,  /       \n"
+		"  \\ \\ \\ \\     \n"
+		"   \\ \\_\\ \\_\\ \n"
+		"    \\/_/\\/ /    \n",
+
+		" ____             \n"
+		"/\\  _`\\         \n"
+		"\\ \\,\\L\\_\\    \n"
+		" \\/_\\__ \\      \n"
+		"   /\\ \\L\\ \\   \n"
+		"   \\ `\\____\\   \n"
+		"    \\/_____/     \n",
+
+		" ______       \n"
+		"/\\__  _\\    \n"
+		"\\/_/\\ \\/   \n"
+		"   \\ \\ \\   \n"
+		"    \\ \\ \\  \n"
+		"     \\ \\_\\ \n"
+		"      \\/_/   \n",
+
+		" __  __           \n"
+		"/\\ \\/\\ \\      \n"
+		"\\ \\ \\ \\ \\    \n"
+		" \\ \\ \\ \\ \\   \n"
+		"  \\ \\ \\_\\ \\  \n"
+		"   \\ \\_____\\   \n"
+		"    \\/_____/     \n",
+
+		" __  __          \n"
+		"/\\ \\/\\ \\     \n"
+		"\\ \\ \\ \\ \\   \n"
+		" \\ \\ \\ \\ \\  \n"
+		"  \\ \\ \\_/ \\  \n"
+		"   \\ `\\___/    \n"
+		"    `\\/__/      \n",
+
+		" __      __            \n"
+		"/\\ \\  __/\\ \\       \n"
+		"\\ \\ \\/\\ \\ \\ \\   \n"
+		" \\ \\ \\ \\ \\ \\ \\  \n"
+		"  \\ \\ \\_/ \\_\\ \\  \n"
+		"   \\ `\\___x___/      \n"
+		"    '\\/__//__/        \n",
+
+		" __   __          \n"
+		"/\\ \\ /\\ \\     \n"
+		"\\ `\\`\\/'/'     \n"
+		" `\\/ > <         \n"
+		"    \\/'/\\`\\    \n"
+		"    /\\_\\ \\_\\  \n"
+		"    \\/_/ \\/_/   \n",
+
+		" __    __      \n"
+		"/\\ \\  /\\ \\ \n"
+		"\\ `\\`\\/'/   \n"
+		" `\\ `\\ /'    \n"
+		"   `\\ \\ \\   \n"
+		"     \\ \\_\\  \n"
+		"      \\/_/    \n",
+
+		" ________        \n"
+		"/\\_____  \\     \n"
+		"\\/____//'/'     \n"
+		"     //'/'       \n"
+		"    //'/'___     \n"
+		"    /\\_______\\ \n"
+		"    \\/_______/  \n",
+	};
+
+     // Protect from crash from over flow and print the letter
+	if (letter >= 'A' && letter <= 'Z')
+		cout << letters[letter - 'A'] << endl;
+} // print_letter(char)
