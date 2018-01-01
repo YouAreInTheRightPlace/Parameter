@@ -1,0 +1,238 @@
+/* PowerOfNerd
+Duy Anh Nguyen
+September 27, 2017
+This program will run three times. It takes in variable for base( could be decimal ) and one for exponent( could only be integer ).
+Then the program will calculate and print out the answer depend on mode.
+Process:
+ * Section 1:
+    - Ask for two variable for base(could be decimal) and exponent(only integer). (x3)
+        + Check if the given number is valid.
+        + Send to a function to calculate.
+    - Function calculate:
+	    + Check if base is equal to zero.
+		+ Check if exponent is equal to zero.
+        + Check if the exponent is positive or negavite.
+        + Do the calculation.
+        + Send back the answer.
+    - Print the answer
+    - Repeat to get 3 runs.
+ * Section 2:
+    - Ask for two bases(could be decimal) and two exponents(only integer).
+	    + Check if the given number is valid.
+		+ Send to the fuction to calculate for answers. (x2)
+	- Function calculate.
+	- Print the sum of two answers.
+	- Do the first answer to the power of second answers.
+Note: IF the user attempt to enter decimal value for exponent, the computer will get rid of the decimal and only keep integer value.
+*/
+
+// Joke of the day: One of the thing that will often happen, "Yesterday it works!".
+
+ // Pre-Processor directive:
+#include <iostream>
+using namespace std;
+
+ // Function prototype:
+double power(double base, int exponent);            // The purpose of this function
+
+ // Main program
+int main(void)
+{
+     // Local variable dictionary:
+	double base = 0, base2 = 0;                 // Variable use to get the base user want to calculate
+	int exponent = 0, exponent2 = 0;            // Variable use to get the exponent user want to calculate
+	double answer = 0, answer2 = 0;             // Answer after the calculation
+
+     /* Program */
+     // Section number 1
+	for (int count = 1; count <= 3; count++)
+	{
+         // Print information about this section
+		cout << "This section of the program will run three times..." << endl;
+		cout << "Take float base and integer exponent. It then calculate and print the answer..." << endl;
+		cout << "NOTE: If you put a float value for exponent, it will automatically round the number!" << endl;
+
+         // Print run number
+		cout << "Run number " << count << endl;
+
+         // Get input - Base
+		cout << "Enter base: ";
+		cin >> base;
+         // Validate input base
+		while (cin.fail())
+		{
+			if (cin.fail())
+				cin.clear(); // Clear error
+			cin.ignore(255, '\n'); // Clean out remainder of input line
+			
+             // Re-enter - Base
+			cout << "INVALID BASE! ";
+			cout << "Please re-enter base: ";
+			cin >> base;
+		} // While
+		cin.ignore(255, '\n'); // Clean out remainder of input line - Ensure user does not enter extral value
+
+         // Get input - Exponent
+		cout << "Enter exponent: ";
+		cin >> exponent;
+         // Validate input Base
+		while (cin.fail())
+		{
+			if (cin.fail())
+				cin.clear(); // Clear error
+			cin.ignore(255, '\n'); // Clean out remainder of input line
+
+             // Re-enter - exponent
+			cout << "INVALID EXPONENT! ";
+			cout << "Please re-enter exponent: ";
+			cin >> base;
+		} // While
+		cin.ignore(255, '\n'); // Clean out remainder of input line - Ensure user does not enter extral value
+
+         // Calculate base and exponent
+		answer = power(base, exponent);
+
+         // Print answer
+		cout << "The answer of " << base << " to the power of " << exponent << " equal " << answer << endl;
+
+         // Stop point
+		system("pause");
+
+         // Clear screen for next run
+		system("cls");
+	} // For
+
+     // Section number 2
+     // Print information about this section
+	cout << "This section of the program will take in two bases and exponents consecutively then do calculation..." << endl;
+	cout << "It first add the two after power then print answer." << endl;
+	cout << "Then, calculate the value of the two together." << endl;
+
+     // Get input - Two bases and two exponents
+     // Base number 1
+	cout << "Enter base number 1: ";
+	cin >> base;
+     // Validate input base
+	while (cin.fail())
+	{
+		if (cin.fail())
+			cin.clear(); // Clear error
+		cin.ignore(255, '\n'); // Clean out remainder of input line
+
+         // Re-enter - Base
+		cout << "INVALID BASE! ";
+		cout << "Please re-enter base number 1: ";
+		cin >> base;
+	} // While
+	cin.ignore(255, '\n'); // Clean out remainder of input line - Ensure user does not enter extral value
+     // Exponent number 1
+	cout << "Enter exponent number 1: ";
+	cin >> exponent;
+     // Validate input - Base
+	while (cin.fail())
+	{
+		if (cin.fail())
+			cin.clear(); // Clear error
+		cin.ignore(255, '\n'); // Clean out remainder of input line
+
+         // Re-enter - Exponent
+		cout << "INVALID EXPONENT! ";
+		cout << "Please re-enter exponent number 1: ";
+		cin >> base;
+	} // While
+	cin.ignore(255, '\n'); // Clean out remainder of input line - Ensure user does not enter extral value
+
+     // Base number 2
+	cout << "Enter base number 2: ";
+	cin >> base2;
+     // Validate input base
+	while (cin.fail())
+	{
+		if (cin.fail())
+			cin.clear(); // Clear error
+		cin.ignore(255, '\n'); // Clean out remainder of input line
+
+         // Re-enter - Base
+		cout << "INVALID BASE! ";
+		cout << "Please re-enter base number 2: ";
+		cin >> base2;
+	} // While
+	cin.ignore(255, '\n'); // Clean out remainder of input line - Ensure user does not enter extral value
+     // Exponent number 2
+	cout << "Enter exponent number 2: ";
+	cin >> exponent2;
+     // Validate input base
+	while (cin.fail())
+	{
+		if (cin.fail())
+			cin.clear(); // Clear error
+		cin.ignore(255, '\n'); // Clean out remainder of input line
+
+         // Re-enter - Exponent
+		cout << "INVALID EXPONENT! ";
+		cout << "Please re-enter exponent number 2: ";
+		cin >> base;
+	} // While
+	cin.ignore(255, '\n'); // Clean out remainder of input line - Ensure user does not enter extral value
+
+     // Do addtion calculation and print
+     // Calculate the first given
+	answer = power(base, exponent);
+     // Calculate the second given
+	answer2 = power(base2, exponent2);
+     // Add and print
+	cout << base << " to the power of " << exponent << " plus " << base2 << " to the power of " << exponent2 << " is equal " << answer + answer2 << endl;
+	
+     // Do power to power
+     // Calculate power to power
+	answer = power(answer, answer2 + 0.5); // Round the second parameter to integer because we could only do integer exponent
+     // Print the answer
+	cout << "(" << base << " to the power of " << exponent << ") to the power of (" << base2 << " to the power of " << exponent2 << ") is " << answer << endl;
+	
+     // Stop point
+	system("pause");
+
+     // Return
+    return 0;
+} // Main
+
+ /* Function */
+ /* power(double, double) - This function take base and exponent the user gave and calculate. Then send back the answer to main.
+ Parameter:
+ + Base - The base user gave.
+ + Exponent - The exponent user gave.
+ */
+double power(double base, int exponent)
+{
+     // Local variable dictionary:
+    double answer = 1;            // The answer after calculation
+
+     /* Calculate and return */
+     // Case base is zero
+	if (base == 0)
+		return 0; // Return value
+     // Case exponent is zero
+	else if (exponent == 0)
+		return 1; // Return value
+     
+     // Case exponent is negative
+	else if (exponent < 0)
+	{
+         // Turn exponent into positive number for looping
+		exponent *= -1;
+
+         // Loop exponent to get answer
+		for (int i = 1; i <= exponent; i++)
+		{
+			answer *= base;
+		} // For
+		return 1 / answer; // Return value
+	} // Else if
+
+     // Case normal condition
+	for (int i = 1; i <= exponent; i++)
+	{
+		answer *= base;
+	} // For
+	return answer; // Return value
+} // power(double, int)
