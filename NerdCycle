@@ -1,0 +1,317 @@
+/* NerdCycle
+Duy Anh Nguyen
+October 5, 2017
+This program will run until the player choose to quit.
+It will generate a random number each round from 1 to 36 and take bet until player choose to leave or successfully got rob.
+There will be three modes game for the user to bet and each will have a different rate of return based on the the difficulty.
+Process:
+- Ask for player's name.
+- Loop play until user choose to quit or run out of money.
+    + Generate a random number from 1 to 36.
+    + Print player's current money.
+    + Give user the choice to choose one of three play modes or quit.
+        + Validate choice. ( Make sure player enter one of the five legal letters )
+    + Get input - Player's guess. ( 1 - 36 ) - All cases are different and therefore you do not need a seperate function.
+        + Validate guess. ( Make sure player enter guess between 1 to 36 )
+    + Take bet
+        + Validate bet. ( Make sure it is an legal value )
+        + Subtract bet from money.
+    + Print out the random number.
+    + Let the player know if they win/lose.
+    + Calculate result.
+        + Return base on the rate of return set by Mr. Scott if player got it right.
+            + Betting single number - Pay out 35 to 1.
+            + Betting even or odd - Pay out 1 to 1.
+            + Betting two numbers - Pay out 17 to 1.
+        + Do not need to subtract money and bet when lost because bet already got taken out.
+    + Print out player's money after calculation.
+    + Return to the begin and play until choice is (Q)uit.
+- Print goodbye message when player quit or player run out of money.
+*/
+
+// Joke of the day: Can you see sharp? Why do you need your glasses if you can "C#".
+
+ // Pre-Processor directive:
+#include <iostream>
+#include <string>
+#include <conio.h>
+#include <time.h>
+#include <Windows.h>
+using namespace std;
+ 
+ // Function prototype:
+void seed_random(void);            // Seed random generator for random number
+
+ // Main program
+int main(void)
+{
+     // Local variable dictionary:
+	string name;            // Player's name
+	char choice;            // Player's choice to pick game modes or quit
+	int money;              // PLayer's current amount of money
+	int bet;                // Player's bet money
+	int guess1, guess2;     // Player's guesses - Number from 1 to 36
+	int random_number;      // The random number for this game
+
+     /* Program */
+     // Seed random generator
+	seed_random();
+
+     // Get player's information - Player's name
+	cout << "Player's name: ";
+	cin >> name;
+	cin.ignore(255, '\n'); // Clean out remainder of input line
+
+     // Player's start money - Random from 1 to 1000
+	money = rand() % 1000 + 1;
+
+     // Run game until player quit
+	do
+	{
+         // Default that user had not win
+		bool win = false;       // This variable check if player win or lose at the end of this game
+
+         // Generate a random number from 1 to 36
+		random_number = rand() % 36 + 1;
+
+         // Print information about this program
+		cout << "This program will run until the player choose to quit..." << endl;
+		cout << "It will generate a random number each round from 1 to 36 and take bet" << endl;
+		cout << "There will be three modes:" << endl;
+		cout << " + Betting single number - Pay out 35 to 1." << endl;
+		cout << " + Betting even or odd - Pay out 1 to 1." << endl;
+		cout << " + Betting two numbers - Pay out 17 to 1." << endl;
+		cout << endl; // Space
+
+		 // Print player's current money
+		cout << "Welcome to the Nerd Cycle. You have: $" << money << endl;
+
+         // Play modes or quit
+		cout << name << ", do you want to play (S)ingle, (E)ven, (O)dd, (D)ouble numbers, or (Q)uit? ";
+		choice = toupper(_getch());
+		cout << choice << endl;
+         // Validate input - Choice
+		while (choice != 'S' && choice != 'E' && choice != 'O' && choice != 'D' && choice != 'Q')
+		{
+             // Re-enter - Exponent
+			cout << "INVALID EXPONENT! ";
+			cout << "Please re-enter your choice: ";
+			choice = toupper(_getch());
+			cout << choice << endl;
+		} // While
+
+         // Switch - Enter play mode
+		switch (choice)
+		{
+		case 'S': // Betting single number
+		{
+			// Ask for the number player guess - Only use one of the two guesses
+			cout << name << ", what number do you think it will be (1-36)? ";
+			cin >> guess1;
+			// Validate input - Guess
+			while (cin.fail() || guess1 < 1 && guess1 > 36)
+			{
+				if (cin.fail())
+					cin.clear(); // Clear error
+				cin.ignore(255, '\n'); // Clean out remainder of input line
+
+				 // Re-enter - Exponent
+				cout << "INVALID Guess! ";
+				cout << "Please re-enter your guess: ";
+				cin >> guess1;
+			} // While
+			cin.ignore(255, '\n'); // Clean out remainder of input line - Ensure user does not enter extral value
+			 // Check if player win or lose
+			if (guess1 == random_number)
+				win = true;
+		} // Case
+             // End case
+			break;
+
+		case 'E': // Betting even number
+		{
+			if (random_number % 2 == 0)
+				win = true;
+		} // Case
+             // End case
+			break;
+		case 'O': // Betting odd number
+		{
+			if (random_number % 2 == 1)
+				win = true;
+		} // Case
+             // End case
+			break;
+
+		case 'D': // Betting two numbers
+		{
+			// Ask for the number player guess - Use two of the two guesses
+			cout << name << ", what is your first guess (1-36)? ";
+			cin >> guess1;
+			cout << name << ", what is your second guess (1-36)? ";
+			cin >> guess2;
+
+			// Make sure the two guesses are not the same
+			bool same_guess = false;    // Check if user entered the same guesses
+			if (guess1 == guess2)
+			{
+				cout << name << ", you cannot enter the same guesses!" << endl;
+				same_guess = true;
+			} // If
+			// Validate input - Guess ( Make sure it from 1 to 36 and both guesses are not the same )
+			while (cin.fail() || same_guess == true || guess1 < 1 && guess1 > 36 || guess2 < 1 && guess2 > 36)
+			{
+				if (cin.fail())
+					cin.clear(); // Clear error
+				cin.ignore(255, '\n'); // Clean out remainder of input line
+
+                 // Default - same_guess = false
+				same_guess = false;
+
+				 // Re-enter - Exponent
+				cout << "INVALID EXPONENT! ";
+				cout << "Please re-enter your first guess: ";
+				cin >> guess1;
+				cout << "INVALID EXPONENT! ";
+				cout << "Please re-enter your second guess: ";
+				cin >> guess2;
+
+                 // Make sure the two guesses are not the same
+				if (guess1 == guess2)
+				{
+					cout << name << ", you cannot enter the same guesses!" << endl;
+					same_guess = true;
+				} // If
+			} // While
+			cin.ignore(255, '\n'); // Clean out remainder of input line - Ensure user does not enter extral value
+			 // Check if player win or lose
+			if (guess1 == random_number || guess2 == random_number)
+				win = true;
+		} // Case
+             // End case
+			break;
+
+		case 'Q': // Quit the "Nerdiness Cycle"
+             // End case
+			break;
+		} // Switch
+
+         // Skip if choice is (Q)uit
+		if (choice != 'Q')
+		{
+             // Print player's current money
+			cout << name << " your current money is: $" << money << endl;
+             // Ask for the amount of money they want to bet
+			cout << name << ", how much do you want to bet? $";
+			cin >> bet;
+			// Validate input - Bet
+			while (cin.fail() || bet < 1 || bet > money)
+			{
+				if (cin.fail())
+					cin.clear(); // Clear error
+				cin.ignore(255, '\n'); // Clean out remainder of input line
+
+				 // Re-enter - Exponent
+				cout << "INVALID EXPONENT! ";
+				cout << "Please re-enter your bet: $";
+				cin >> bet;
+			} // While
+			cin.ignore(255, '\n'); // Clean out remainder of input line - Ensure user does not enter extral value
+			 // Take the money out for betting
+			money -= bet;
+
+             // Print the random number
+			cout << "Today random number the nerdiness community choose is: ";
+             // Print dots to give player anticipation experience
+			for (int counter = 1; counter <= 3; counter++)
+			{
+				Sleep(1000);
+				cout << ".";
+			} // For
+             // Erase dots
+			cout << "\b\b\b";
+
+             // Print the random number
+			cout << random_number << "   " << endl;
+
+             // Print result - Win/lose
+			if (win == true)
+			{
+				// Print player win
+				cout << "You Win!" << endl;
+
+				// Add the winning money - Each game mode have different return rate
+				switch (choice)
+				{
+				case 'S': // Betting single number - Pay out 35 to 1
+					money += bet * 35;
+                     // End case
+					break;
+
+				case 'E': // Betting even number - Pay out 1 to 1
+					money += bet * 2;
+                     // End case
+					break;
+				case 'O': // Betting odd number- Pay out 1 to 1
+					money += bet * 2;
+                     // End case
+					break;
+
+				case 'D': // Betting two numbers - Pay out 17 to 1
+					money += bet * 17;
+                     // End case
+					break;
+				} // Switch
+			} // If
+			else
+				cout << "You lose!" << endl;
+             // You do not need to subtract the money from bet because you already take it out when get bet
+
+             // Print player's money after calculation of win/lose
+			cout << name << " you money now is: $" << money << endl;
+             // Stop point
+			system("pause");
+		} // If
+         // Check if player still have money to get rob
+		if (money == 0)
+			choice = 'Q';
+
+         // CLear screen
+		system("cls");
+	} while(choice != 'Q');
+
+     // Print goodbye
+	if (money == 0)
+	{
+		// Print goodbye - PLayer have no money
+		cout << "You no longer have value for us to use!" << endl;
+		cout << "Bring that nerdy life with you..." << endl;
+	} // If
+	else
+	{
+		// Print goodbye
+		cout << "You choose to quit the nerdy life!?!?" << endl;
+		cout << "Well, you will never going to come back I'll tell you that!" << endl;
+		cout << name << ", here is your money $" << money << endl;
+	} // Else
+
+     // Stop point
+	system("pause");
+
+     // Return
+	return 0;
+} // Main
+
+ /* Function */
+ /* seed_random() - This function will seed the random generator for random number.
+ */
+void seed_random(void)
+{
+     // Local variable dictionary:
+	int i;            // Loop counter
+
+     // Seed the random number generator use the timer
+	srand((unsigned)time(NULL));
+	for (i = 0; i<rand(); i++)
+		rand();
+} // seed_random(void)
