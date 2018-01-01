@@ -1,0 +1,106 @@
+/* WhenNerdDoFibonacci
+Duy Anh Nguyen
+October 4, 2017
+This program will run three times, take in the number of term for fibonacci sequence each time.
+It then print out the sequence and andswer.
+Process:
+- Ask for the number of term for fibonacci sequence. (x3)
+- Send to function to calculate.
+- Print the sequence and answer.
+*/
+
+// Joke of the day: There are 10 types of people in this world, those who can read binary number and those who cannot.
+
+ // Pre-Processor directive:
+#include <iostream>
+using namespace std;
+
+ // Function prototype:
+void fibonacci(int term);            // To calculate the sum of fibonacci sequence
+ 
+ // Main program
+int main(void)
+{
+     // Local variable dictionary:
+	int number_term;            // Number of terms for fibonacci sequence
+
+     /* Program */
+	 // Print information about this program
+	cout << "This program will look three times, take in the number of term for fibonacci sequence each time." << endl;
+	cout << "It then print out all the sequence and andswer." << endl;
+
+     // Run and get number of term for fibonacci sequence three times
+	for (int counter = 1; counter <= 3; counter++)
+	{
+         // Get input - Amount of number in the sequence
+		cout << "How many numbers in the sequence? ";
+		cin >> number_term;
+         // Validate input base
+		while (cin.fail() || number_term < 1)
+		{
+			if (cin.fail())
+				cin.clear(); // Clear error
+			cin.ignore(255, '\n'); // Clean out remainder of input line
+
+             // Re-enter - Base
+			cout << "INVALID BASE! ";
+			cout << "How many numbers in the sequence? ";
+			cin >> number_term;
+		} // While
+		cin.ignore(255, '\n'); // Clean out remainder of input line - Ensure user does not enter extral value
+
+         // Send to function to print the sequence and answer
+		fibonacci(number_term);
+
+         // Stop point
+		system("pause");
+
+         // Clear screen for the next fibonacci sequence run
+		system("cls");
+	} // For
+     // Return
+	return 0;
+} // Main
+
+ /* Function */
+ /* fibonacci(int) - This function take the number of term for fibonacci sequence user enter then loop to get term number and calculate.
+ Parameter:
+ + Term - Number of terms for fibonacci sequence.
+ */
+void fibonacci(int term)
+{
+     // Local variable dictionary:
+	unsigned int num1 = 1, num2 = 1;    // The two current term number
+	unsigned int next_num;              // The next term number
+	unsigned int sum = 0;               // Total addition of the fibonacci sequence
+
+     // Case for term
+	switch (term)
+	{
+	case 1: // NUmber of term is one
+         // Print first number of term
+		cout << "1";
+		sum += 1; // Update value
+         // End case
+		break;
+	default: // Number of term is more than one
+         // Print the two start number - 1 and 1
+		cout << num1 << " + " << num2;
+		sum = num1 + num2; // Update value
+		// Loop to get the term number and answer
+		for (int counter = 3; counter <= term; counter++)
+		{
+             // Add the two current term number to get the next number
+			next_num = num1 + num2;
+			cout << " + " << next_num;
+             // Add the new term number
+			sum += next_num;
+             // Move the two current terms up for the next run
+			num1 = num2;
+			num2 = next_num;
+		} // For
+	} // Switch
+
+     // Print the answer - Sum
+	cout << " = " << sum << endl;
+} // fibonacci(int)
