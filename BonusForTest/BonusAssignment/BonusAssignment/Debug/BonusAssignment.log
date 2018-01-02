@@ -1,0 +1,5 @@
+﻿  TheAverageOfTheAverage.cpp
+  Program FORE.cpp
+  Generating Code...
+TheAverageOfTheAverage.obj : error LNK2005: _main already defined in Program FORE.obj
+C:\Users\Duy Anh\Documents\School\3. CS30s\Assignment\Grade 11 - Assignment 1 CS30s\BonusForTest\BonusAssignment\Debug\BonusAssignment.exe : fatal error LNK1169: one or more multiply defined symbols found
